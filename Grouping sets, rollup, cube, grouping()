@@ -1,0 +1,17 @@
+SELECT vendorid, passenger_count, sum(total_amount) as fare FROM `seismic-axiom-481110-u0.demodataset.taxitrips` 
+group by grouping sets( (VendorID),(passenger_count), (VendorID, passenger_count))
+order by vendorid desc, passenger_count desc;
+
+SELECT vendorid, passenger_count, sum(total_amount) as fare FROM `seismic-axiom-481110-u0.demodataset.taxitrips` 
+group by ROLLUP ( VendorID,passenger_count)
+order by vendorid desc, passenger_count desc;
+
+SELECT vendorid, passenger_count, sum(total_amount) as fare FROM `seismic-axiom-481110-u0.demodataset.taxitrips` 
+group by CUBE ( VendorID,passenger_count)
+order by vendorid desc, passenger_count desc;
+
+
+SELECT vendorid, passenger_count, grouping(vendorid) as g_vendor,
+grouping(passenger_count) as g_passenger,sum(total_amount) as fare FROM `seismic-axiom-481110-u0.demodataset.taxitrips` 
+group by ROLLUP ( VendorID,passenger_count)
+order by vendorid desc, passenger_count desc;
